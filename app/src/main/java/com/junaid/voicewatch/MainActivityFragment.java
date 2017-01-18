@@ -140,7 +140,8 @@ public class MainActivityFragment extends Fragment{
 
                 String s = intent.getStringExtra(VoiceListeningService.BROADCAST_STRING);
                 if(s != null){
-                   Log.d("Broadcast",s);
+                    Log.d("Broadcast",s);
+                    Toast.makeText(getActivity(),"' " + s + " ' ",Toast.LENGTH_SHORT).show();
 
                     if(s.matches("start") || s.matches("begin"))
                         start();
