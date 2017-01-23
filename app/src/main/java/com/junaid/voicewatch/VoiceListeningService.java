@@ -242,9 +242,9 @@ public class VoiceListeningService extends Service {
             }
 
             Log.d(DEBUG_STRING,"{ " + strings.get(0));
-            Intent intent = new Intent(FILTER);
+            /*Intent intent = new Intent(FILTER);
             intent.putExtra(BROADCAST_STRING,strings.get(0));
-            sendBroadcast(intent);
+            sendBroadcast(intent);*/
             restartListener();
         }
 

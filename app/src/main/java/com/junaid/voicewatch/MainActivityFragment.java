@@ -13,6 +13,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class MainActivityFragment extends Fragment{
     private static final String TAG = "Speech Output" ;
 
     private TextView mView;
-    private Button mButton,mReset;
+    private FloatingActionButton mButton,mReset;
     private long startTime,timeInMillis,updatedTime,timeSwapBuff;
     private int secs,mins,millisecs;
     int controller = 0;
@@ -100,8 +101,8 @@ public class MainActivityFragment extends Fragment{
         //inflating the view
 
         mView = (TextView) view.findViewById(R.id.display_time_id);
-        mButton = (Button) view.findViewById(R.id.control_button);
-        mReset = (Button) view.findViewById(R.id.reset_button);
+        mButton = (FloatingActionButton) view.findViewById(R.id.control_button);
+        mReset = (FloatingActionButton) view.findViewById(R.id.reset_button);
         mReset.setVisibility(view.GONE);
 
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -139,16 +140,16 @@ public class MainActivityFragment extends Fragment{
              //   Log.d("Broadcast","Broadcast Received");
 
                 String s = intent.getStringExtra(VoiceListeningService.BROADCAST_STRING);
-                if(s != null){
+                if(!s.isEmpty()){
                     Log.d("Broadcast",s);
                     Toast.makeText(getActivity(),"' " + s + " ' ",Toast.LENGTH_SHORT).show();
 
-                    if(s.matches("start") || s.matches("begin"))
+                    if(s.contains("start") || s.contains("begin"))
                         start();
-                    if(s.matches("stop") || s.matches("pause")){
+                    if(s.contains("stop") || s.contains("pause")){
                         pause();
                     }
-                    if(s.matches("restart") || s.matches("reset")){
+                    if(s.contains("restart") || s.contains("reset")){
                         reset();
                     }
 
@@ -189,6 +190,7 @@ public class MainActivityFragment extends Fragment{
             millisecs = (int) updatedTime % 1000;
 
             int newMils = millisecs/10;
+            secs = secs %60;
 
             mView.setText("" + String.format("%02d",mins) +":"+String.format("%02d",secs)+":"+ String.format("%02d",newMils));
             mHandler.postDelayed(this,REFRESH_RATE);
@@ -205,7 +207,8 @@ public class MainActivityFragment extends Fragment{
         secs=0;
         mins=0;
         millisecs=0;
-        mButton.setText("Start");
+        //mButton.setText("Start");
+        mButton.setImageResource(android.R.drawable.ic_media_play);
         mHandler.removeCallbacks(updateTimer);
         mView.setText("00:00:00");
 
@@ -218,7 +221,8 @@ public class MainActivityFragment extends Fragment{
 
         startTime = System.currentTimeMillis();
         mHandler.postDelayed(updateTimer, REFRESH_RATE);
-        mButton.setText("Pause");
+       // mButton.setText("Pause");
+        mButton.setImageResource(android.R.drawable.ic_media_pause);
         controller = 1;
 
     }
@@ -226,7 +230,8 @@ public class MainActivityFragment extends Fragment{
     private void pause(){
         timeSwapBuff+=timeInMillis;
         mHandler.removeCallbacks(updateTimer);
-        mButton.setText("Start");
+       // mButton.setText("Start");
+        mButton.setImageResource(android.R.drawable.ic_media_play);
         mReset.setVisibility(view.VISIBLE);
         controller=0;
     }

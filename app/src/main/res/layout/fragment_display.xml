@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         >
-
+            <!--
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/reset_button"
             android:text="Reset"/>
+            -->
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:src="@android:drawable/ic_media_play"
+            android:id="@+id/control_button"
+            android:layout_margin="10dp"/>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:src="@android:drawable/ic_menu_rotate"
+            android:id="@+id/reset_button"
+            android:layout_margin="10dp"/>
+
     </LinearLayout>
+
 
 
 
